@@ -18,8 +18,8 @@ export function* fetchPhotosFlow(action) {
     const apiKey = yield select(getApiKey)
     const { name, sol } = action.payload
   try {
-    const roverPhoto = yield call( name, sol, getPhotos, apiKey )
-    const { photos } = roverPhoto
+    const response = yield call( getPhotos, apiKey, name, sol )
+    const { photos } = response
     yield put(fetchPhotosSuccess( {photos, name, sol }))
     yield put(changeSol(sol))
   } catch ({ error }) {
